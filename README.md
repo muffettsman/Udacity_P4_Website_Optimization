@@ -15,7 +15,7 @@ Run in local browser.
 ####Part 2: Optimize Frames per Second in pizza.html
 	@: 409, 412, 415, 427 Updated document.querySelector to document.getElementById - Web API call is faster.
 	@: 451, 529 Updated document.querySelector to document.getElementsByClassName - Web API call is faster.
-	@: 478 Declared var pizzasDiv outside the for loop so the function only makes one DOM call.
+	@: 478, 555 Declared var outside the for loop so the function only makes one DOM call.
 	@: 506 created var lastScrollY to hold last scroll position
 	@: 507 created var animateCheck as a flag to animate frame only once per update
 	@: 515 created checkFlag() func that checks the status of animateCheck bool and calls requestAnimationFrame if flag is off
@@ -26,6 +26,7 @@ Run in local browser.
 	@: 530 currentScrollY modified to calc from lastScrollY
 	@: 533 phase adjusted for the current position
 	@: 548 window event listener that triggers onScroll func
+	@: 554 lowered count of background images to 48 / multiple of cols var
 	
 
 ####Resources

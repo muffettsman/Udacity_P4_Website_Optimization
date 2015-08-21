@@ -406,13 +406,13 @@ var resizePizzas = function(size) {
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        document.getElementById("#pizzaSize").innerHTML = "Small"; // document.getElementById() Web API call is faster.
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("#pizzaSize").innerHTML = "Medium"; // document.getElementById() Web API call is faster.
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("#pizzaSize").innerHTML = "Large"; // document.getElementById() Web API call is faster.
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -424,7 +424,7 @@ var resizePizzas = function(size) {
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
-    var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
+    var windowwidth = document.getElementById("#randomPizzas").offsetWidth; // document.getElementById() Web API call is faster.
     var oldsize = oldwidth / windowwidth;
 
     // TODO: change to 3 sizes? no more xl?
@@ -448,15 +448,13 @@ var resizePizzas = function(size) {
     return dx;
   }
 
-  var pizzaContainers = document.querySelectorAll(".randomPizzaContainer");
+  var pizzaContainers = document.getElementsByClassName(".randomPizzaContainer"); // updated to getElementsByClassName Web API call is faster.
   var pizzaContainersLength = pizzaContainers.length;
   var dx = determineDx(pizzaContainers[0], size);
   var newwidth = (pizzaContainers[0].offsetWidth + dx) + 'px';
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    // #optimize: pull pizzaContainers selector and length calculations
-    // out of the for loop
     for (var i = 0; i < pizzaContainersLength; i++) {
       pizzaContainers[i].style.width = newwidth;
     }
@@ -474,8 +472,10 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+var pizzasDiv;
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
+  // moved var declaration outside of for loop
+  pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -506,9 +506,9 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 var lastScrollY = 0; // reset latest scroll position
 var animateCheck = true; // animate bool 
 
-// #optimize: scroll callback, bound to scroll window event listener
+// scroll callback, bound to scroll window event listener
 function onScroll() {
-  lastScrollY = window.scrollY;
+  lastScrollY = window.scrollY; // sets to current pixels scrolled from top
   checkFlag();
 }
 
@@ -526,7 +526,7 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
+  var items = document.getElementsByClassName('mover'); // getElementsByClassName Web API call is faster.
   var currentScrollY = lastScrollY / 1250; // get current position
   var phase;
   for (var i = 0; i < items.length; i++) {
@@ -544,7 +544,7 @@ function updatePositions() {
   }
 }
 
-// runs on scroll, #optimize: change callback function to `onScroll`
+// runs on scroll bound to scroll window event listener:
 window.addEventListener('scroll', onScroll);
 
 // Generates the sliding pizzas when the page loads.

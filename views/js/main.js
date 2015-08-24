@@ -406,13 +406,13 @@ var resizePizzas = function(size) {
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.getElementById("#pizzaSize").innerHTML = "Small"; // document.getElementById() Web API call is faster.
+        document.querySelector("#pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.getElementById("#pizzaSize").innerHTML = "Medium"; // document.getElementById() Web API call is faster.
+        document.querySelector("#pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.getElementById("#pizzaSize").innerHTML = "Large"; // document.getElementById() Web API call is faster.
+        document.querySelector("#pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -549,11 +549,15 @@ window.addEventListener('scroll', onScroll);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
+  var height = window.screen.height
+  var rows = height / 200;
   var cols = 8;
+  var pizzas = rows * cols
   var s = 256;
   var elem;
   var movingPizzas = document.getElementById('movingPizzas1'); // document.getElementById - Web API call is faster.
-  for (var i = 0; i < 48; i++) { // lowered to multiple of cols 
+  console.log('height: ' + height);
+  for (var i = 0; i < pizzas; i++) { // made count dynamic to screen height 
     elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";

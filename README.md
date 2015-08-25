@@ -4,6 +4,7 @@ Optimized the critical rendering path and make this page render as quickly as po
 
 ### Getting started
 Clone this portfolio: frontend-nanodegree-mobile-portfolio-master
+The full download can be pulled from: https://github.com/muffettsman/Udacity_P4_Website_Optimization
 Run in local browser.
 
 ####Part 1: Optimize PageSpeed Insights score for index.html

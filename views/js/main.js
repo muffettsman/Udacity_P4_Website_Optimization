@@ -424,7 +424,8 @@ var resizePizzas = function(size) {
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
-    var windowwidth = document.getElementById("#randomPizzas").offsetWidth; // document.getElementById() Web API call is faster.
+	// fixed # typo causing wrong selector to be called
+    var windowwidth = document.getElementById("randomPizzas").offsetWidth; // document.getElementById() Web API call is faster.
     var oldsize = oldwidth / windowwidth;
 
     // TODO: change to 3 sizes? no more xl?
@@ -448,7 +449,8 @@ var resizePizzas = function(size) {
     return dx;
   }
 
-  var pizzaContainers = document.getElementsByClassName(".randomPizzaContainer"); // updated to getElementsByClassName Web API call is faster.
+  // fixed . typo causing wrong selector to be called
+  var pizzaContainers = document.getElementsByClassName("randomPizzaContainer"); // updated to getElementsByClassName Web API call is faster.
   var pizzaContainersLength = pizzaContainers.length;
   var dx = determineDx(pizzaContainers[0], size);
   var newwidth = (pizzaContainers[0].offsetWidth + dx) + 'px';
@@ -472,10 +474,9 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-var pizzasDiv;
+var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
   // moved var declaration outside of for loop
-  pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -527,9 +528,10 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   var items = document.getElementsByClassName('mover'); // getElementsByClassName Web API call is faster.
+  var itemLength = items.length // hard coded length to make for loop more efficient 
   var currentScrollY = lastScrollY / 1250; // get current position
   var phase;
-  for (var i = 0; i < items.length; i++) {
+  for (var i = 0; i < itemLength; i++) {
     phase = Math.sin(currentScrollY + (i % 5)); // adj for current position
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
